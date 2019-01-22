@@ -1,0 +1,27 @@
+# https://medium.com/@francoisromain/getting-started-with-docker-for-local-node-js-development-192ceca18781
+
+version: '3'
+
+services:
+  web:
+    # there should be either an _image_ or _build_ specified
+    # build: . # where the Dockerfile lives
+    image: node:8.12.0-alpine
+    command: npm run ${ENVMODE}
+    working_dir: /usr/app
+    volumes:
+      - .:/usr/app
+      # - /usr/app/node_modules
+    ports:
+      - "3000:3000"
+    # depends_on:
+    #   - postgres
+    environment:
+      # NODE_ENV: development
+      CHAT_MONGODB_USER: ${CHAT_MONGODB_USER}
+      CHAT_MONGODB_PASSWORD: ${CHAT_MONGODB_PASSWORD}
+  # postgres:
+  #   image: postgres:9.6.2-alpine
+  #   environment:
+  #     POSTGRES_USER: todoapp
+  #     POSTGRES_DB: todos

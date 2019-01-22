@@ -58,7 +58,11 @@ app.post("/messages", async (req, resp) => {
 
 
 io.on('connection', (socket) => {
+    // console.log(io.sockets.adapter.rooms.length)
     console.log("user connected")
+
+    var clients = Object.keys(io.sockets.adapter.rooms).length
+    console.log("People in a room: " + clients)
 })
 
 mongoose.connect(dbUrl, (err) => {
